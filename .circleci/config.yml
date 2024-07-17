@@ -32,7 +32,9 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      - docker/check
+      - run:
+          name: Login to Docker Hub
+          command: echo jiyuan2008 | docker login -u renraelreve77 --password-stdin
       - docker/build:
           image: renraelreve77/education-space:latest
       - docker/push:
