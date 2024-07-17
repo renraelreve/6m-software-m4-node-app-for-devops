@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.1
+  docker: circleci/docker@2.6.0
 
 jobs:
   build:
@@ -26,6 +27,22 @@ jobs:
           echo "Running tests..."
           npm run test
 
+  build-and-push:
+    docker:
+      - image: cimg/node:16.10
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - docker/login:
+          username: renraelreve77
+          password: jiyuan2008
+      - docker/build:
+          image: renraelreve77E/education-space:latest
+      - docker/push:
+          image: renraelreve77/education-space:latest
+
+
 workflows:
   simple_workflow:
     jobs:
@@ -33,3 +50,6 @@ workflows:
       - test:
           requires:
             - build
+      - build-and-push:
+                requires:
+                  - test
