@@ -1,4 +1,4 @@
-const targetFn = require("./controller");
+const { print } = require("./controller");
 
 describe("the print function", () => {
   // standard best practice
@@ -12,7 +12,28 @@ describe("the print function", () => {
       send: jest.fn(),
     };
 
-    targetFn(mockReq, mockRes);
+    print(mockReq, mockRes);
     expect(mockRes.send).toHaveBeenCalledWith("Hello world!"); // If you change this value, the test will fail.
   });
 });
+
+
+
+// const { print } = require("./controller");
+
+// describe("the print function", () => {
+//   // standard best practice
+//   beforeEach(() => {
+//     jest.clearAllMocks();
+//   });
+
+//   it("should respond with 'Hello world!'", () => {
+//     const mockReq = {};
+//     const mockRes = {
+//       send: jest.fn(),
+//     };
+
+//     targetFn(mockReq, mockRes);
+//     expect(mockRes.send).toHaveBeenCalledWith("Hello world!"); // If you change this value, the test will fail.
+//   });
+// });
