@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.1
   docker: circleci/docker@2.6.0
+  heroku: circleci/heroku@2.0.0
 
 jobs:
   build:
@@ -42,6 +43,21 @@ jobs:
           name: Push Docker Image
           command: docker push docker.io/renraelreve77/education-space:latest
 
+  deploy:
+    docker:
+        - image: cimg/node:16.10
+    steps:
+        - setup_remote_docker
+        - heroku/install
+        - checkout
+        - run:
+            name: Heroku Container Push
+            command: |
+                heroku container:login
+                heroku stack:set container -a renraelreve77-su-devops
+                heroku container:push web -a renraelreve77-su-devops
+                heroku container:release web -a renraelreve77-su-devops
+
 workflows:
   simple_workflow:
     jobs:
@@ -52,3 +68,6 @@ workflows:
       - build-and-push:
                 requires:
                   - test
+      - deploy:
+          requires:
+            - build-and-push
