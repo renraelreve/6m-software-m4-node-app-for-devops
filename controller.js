@@ -4,4 +4,20 @@ function print(req, res){
     res.send("Hello world!");
 }
 
-module.exports = print;
+// Function for the /home endpoint
+function home(req, res) {
+  res.send("This is the home page");
+}
+
+// Function for the /user endpoint
+function createUser(req, res) {
+  const { name, email, password } = req.body;
+  console.log(`Name: ${name}, Email: ${email}`);
+  res.send(`User created with Name: ${name} and Email: ${email}`);
+}
+
+module.exports = {
+  print,
+  home,
+  createUser
+};
