@@ -49,9 +49,9 @@ jobs:
       # - docker/push:
       #     image: renraelreve77/education-space
 
-      # - run:
-      #     name: Push Docker Image
-      #     command: docker push docker.io/renraelreve77/education-space:latest
+      - run:
+          name: Push Docker Image
+          command: docker push docker.io/renraelreve77/education-space:latest
 
   deploy:
     docker:
