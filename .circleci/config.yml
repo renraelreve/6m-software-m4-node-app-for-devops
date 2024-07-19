@@ -39,19 +39,19 @@ jobs:
           name: Login to Docker Hub
           command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
-      # - docker/build:
-      #     image: renraelreve77/education-space
+      - docker/build:
+          image: renraelreve77/education-space
 
-      - run:
-          name: Build Docker Image
-          command: docker build --file=./Dockerfile --tag=docker.io/renraelreve77/education-space:latest .
+      # - run:
+      #     name: Build Docker Image
+      #     command: docker build --file=./Dockerfile --tag=docker.io/renraelreve77/education-space:latest .
 
-      # - docker/push:
-      #     image: renraelreve77/education-space
+      - docker/push:
+          image: renraelreve77/education-space
 
-      - run:
-          name: Push Docker Image
-          command: docker push docker.io/renraelreve77/education-space:latest
+      # - run:
+      #     name: Push Docker Image
+      #     command: docker push docker.io/renraelreve77/education-space:latest
 
   deploy:
     docker:
