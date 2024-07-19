@@ -33,11 +33,11 @@ jobs:
     steps:
       - setup_remote_docker
       - checkout
-      # - docker/check
+      - docker/check
 
-      - run:
-          name: Login to Docker Hub
-          command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+      # - run:
+      #     name: Login to Docker Hub
+      #     command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
       - docker/build:
           image: renraelreve77/education-space
