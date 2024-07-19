@@ -71,13 +71,41 @@ jobs:
 workflows:
   simple_workflow:
     jobs:
-      - build
+      - build:
+          name: build-main
+          filters:
+            branches:
+              only: main
       - test:
+          name: test-main
           requires:
-            - build
+            - build-main
+          filters:
+            branches:
+              only: main
+      - build:
+          name: build-release
+          filters:
+            branches:
+              only: release
+      - test:
+          name: test-release
+          requires:
+            - build-release
+          filters:
+            branches:
+              only: release
       - build-and-push:
-                requires:
-                  - test
-      - deploy:
+          name: build-and-push-release
           requires:
-            - build-and-push
+            - test-release
+          filters:
+            branches:
+              only: release
+      - deploy:
+          name: deploy-release
+          requires:
+            - build-and-push-release
+          filters:
+            branches:
+              only: release
