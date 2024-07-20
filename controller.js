@@ -6,7 +6,7 @@ function print(req, res){
 
 // Function for the /home endpoint
 function home(req, res) {
-  res.send("This is the home page, testing endpoint.");
+  res.send("This is the home page, testing endpoint. And now circlecistatus checks in github");
 }
 
 // Function for the /user endpoint
