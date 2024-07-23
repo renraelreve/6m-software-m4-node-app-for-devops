@@ -69,6 +69,20 @@ jobs:
             severity-threshold: high
             fail-on-issues: false
 
+  codescan:
+    docker:
+      - image: cimg/node:16.10
+    environment:
+      IMAGE_NAME: edisonzsq/education-space
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker/check
+      - run: docker build -t $IMAGE_NAME .
+      - snyk/install
+      - run: |
+          snyk code test
+
   deploy:
     docker:
         - image: cimg/node:16.10
@@ -121,6 +135,13 @@ workflows:
 
 # The scan job
       - scan:
+          requires:
+            - build-main
+          filters:
+            branches:
+              only: main
+
+      - codescan:
           requires:
             - build-main
           filters:
