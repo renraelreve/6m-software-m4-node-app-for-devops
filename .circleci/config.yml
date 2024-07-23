@@ -120,7 +120,7 @@ workflows:
 # The scan job
       - scan:
           requires:
-            - build
+            - build-main
           filters:
             branches:
               only: main
